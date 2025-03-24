@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="camel.png" type="image/png">
   <title>Timing</title>
   <style>
     * {box-sizing: border-box; margin: 0; padding: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;}
@@ -41,6 +42,7 @@
       }
     }
     let urlImg;
+    let clicks=0;
     const randomNumberEl = document.getElementById('random-number');
     const timerEl = document.getElementById('timer');
     const imageEl = document.getElementById('image');
@@ -48,7 +50,7 @@
     let startTime;
     let isWaiting = true;
     function generateRandomNumber() {
-      return (Math.random() * 10 + 30).toFixed(2);
+      return (Math.random() * 30 + 10+clicks).toFixed(2);
     }
     function updateTimer() {
       let elapsed = (performance.now() - startTime) / 1000;
@@ -80,6 +82,7 @@
     function handleClick() {
       if (isWaiting) return;
       isWaiting = true;
+      
       clearInterval(timerInterval);
       let elapsed = (performance.now() - startTime) / 1000;
       let randomNumber = parseFloat(randomNumberEl.textContent);
@@ -88,10 +91,11 @@
       if (diff <= 0.1) {
         blurValue = 0;
       } else {
-        blurValue = (diff - 0.1) * 2;
+        blurValue = (diff - 0.1) * (clicks/5);
       }
       randomNumberEl.textContent=" ";
       loadImageAndApplyFilter(urlImg, blurValue);
+      clicks++;
       getImage();
     }
     document.addEventListener('click', handleClick);
