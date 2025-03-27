@@ -126,7 +126,7 @@
         urlImg = extractedImages[Math.floor(Math.random() * extractedImages.length)];
         init();
       } catch (error) {
-        setTimeout(function() { alert("Little problem. We are solving!"); getImage();}, 3000);
+        setTimeout(function() {if(urlParams.get('url')!="18"){ alert("Little problem. We are solving!");} getImage();}, 3000);
       }
     }
     getImage();
